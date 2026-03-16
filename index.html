@@ -7,9 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--green:#1D9E75;--green-dark:#0F6E56;--green-light:#E1F5EE;--green-mid:#9FE1CB;--green-text:#085041;--wa-dark:#075E54;--wa-green:#25D366;--wa-bg:#ECE5DD;--white:#ffffff;--gray-50:#f9f9f8;--gray-100:#f0f0ee;--gray-200:#e0e0dc;--gray-400:#9a9a96;--gray-600:#5a5a56;--gray-900:#1a1a18;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;}
+:root{--green:#1D9E75;--green-dark:#0F6E56;--green-light:#E1F5EE;--green-mid:#9FE1CB;--green-text:#085041;--wa-dark:#075E54;--wa-green:#25D366;--wa-bg:#ECE5DD;--white:#ffffff;--gray-100:#f0f0ee;--gray-200:#e0e0dc;--gray-400:#9a9a96;--gray-600:#5a5a56;--gray-900:#1a1a18;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:var(--font);background:var(--wa-bg);min-height:100vh;display:flex;align-items:flex-start;justify-content:center}
+body{font-family:var(--font);background:var(--wa-bg);min-height:100vh;display:flex;justify-content:center}
 .app{width:100%;max-width:430px;min-height:100vh;display:flex;flex-direction:column;background:var(--wa-bg)}
 .wa-header{background:var(--wa-dark);padding:10px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:30;box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .wa-avatar{width:38px;height:38px;border-radius:50%;background:var(--wa-green);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:#fff;flex-shrink:0}
@@ -17,9 +17,6 @@ body{font-family:var(--font);background:var(--wa-bg);min-height:100vh;display:fl
 .wa-name{font-size:15px;font-weight:500;color:#fff;line-height:1.2}
 .wa-status{font-size:11px;color:#B2DFDB}
 .wa-badge{font-size:10px;color:#B2DFDB;text-align:right;line-height:1.4}
-.nav-tabs{display:flex;background:var(--white);border-bottom:1px solid var(--gray-200);position:sticky;top:58px;z-index:20}
-.tab{flex:1;padding:11px 8px;font-size:13px;font-family:var(--font);border:none;background:transparent;cursor:pointer;color:var(--gray-400);border-bottom:2px solid transparent;transition:all .2s;font-weight:400}
-.tab.active{color:var(--wa-dark);border-bottom-color:var(--wa-green);font-weight:500}
 .chat-view{flex:1;display:flex;flex-direction:column}
 .chat-body{flex:1;overflow-y:auto;padding:12px 10px 90px;display:flex;flex-direction:column;gap:6px;min-height:500px}
 .bubble-in{align-self:flex-start;max-width:82%}
@@ -55,60 +52,12 @@ body{font-family:var(--font);background:var(--wa-bg);min-height:100vh;display:fl
 .chat-input{flex:1;height:40px;border-radius:20px;border:none;padding:0 14px;font-size:14px;font-family:var(--font);background:var(--white);outline:none;color:var(--gray-900)}
 .send-btn{width:40px;height:40px;border-radius:50%;background:var(--wa-green);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
 .send-btn:hover{background:#1DA851}
-.painel-view{display:none;padding:14px;background:#f0f2f5;min-height:500px}
-.painel-view.active{display:block}
-.painel-top{background:var(--wa-dark);border-radius:12px;padding:14px 16px;margin-bottom:14px;color:var(--white)}
-.painel-title{font-size:18px;font-weight:500;margin-bottom:2px}
-.painel-sub{font-size:12px;color:#B2DFDB}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.stat{background:var(--white);border-radius:8px;padding:10px 8px;text-align:center}
-.stat-n{font-size:22px;font-weight:500;color:var(--wa-dark)}
-.stat-l{font-size:10px;color:var(--gray-400);margin-top:2px}
-.lead-card{background:var(--white);border-radius:12px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:box-shadow .2s;border:0.5px solid var(--gray-200)}
-.lead-card:hover{box-shadow:0 2px 10px rgba(0,0,0,.1)}
-.lc-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.lc-av{width:38px;height:38px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:var(--green);flex-shrink:0}
-.lc-name{font-size:15px;font-weight:500;color:var(--gray-900)}
-.lc-time{font-size:11px;color:var(--gray-400)}
-.lc-badge{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;background:var(--green-light);color:var(--green-text)}
-.lc-chips{display:flex;gap:6px;flex-wrap:wrap}
-.lc-chip{padding:3px 9px;background:var(--gray-100);border-radius:20px;font-size:11px;color:var(--gray-600)}
-.lc-chip.g{background:var(--green-light);color:var(--green-text)}
-.empty{text-align:center;padding:3rem 1rem;color:var(--gray-400);font-size:14px;line-height:1.7}
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;overflow-y:auto;padding:20px 10px;align-items:flex-start;justify-content:center}
-.overlay.show{display:flex}
-.modal{background:var(--white);border-radius:16px;width:100%;max-width:430px;overflow:hidden}
-.modal-head{background:var(--wa-dark);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
-.modal-title{font-size:16px;font-weight:500;color:var(--white)}
-.modal-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.2);border:none;cursor:pointer;color:var(--white);font-size:16px;display:flex;align-items:center;justify-content:center}
-.modal-body{padding:16px}
-.m-section{margin-bottom:16px}
-.m-sec-title{font-size:10px;font-weight:500;letter-spacing:.07em;color:var(--gray-400);text-transform:uppercase;margin-bottom:10px}
-.m-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--gray-100)}
-.m-row:last-child{border-bottom:none}
-.m-key{font-size:13px;color:var(--gray-600)}
-.m-val{font-size:13px;font-weight:500;color:var(--gray-900);text-align:right;max-width:55%;font-family:var(--mono)}
-.m-val.g{color:var(--green)}
-.margem-box{background:var(--green-light);border:0.5px solid var(--green-mid);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.mb-label{font-size:13px;font-weight:500;color:var(--green-text)}
-.mb-val{font-size:22px;font-weight:500;color:var(--green);font-family:var(--mono)}
-.doc-wrap{border:0.5px solid var(--gray-200);border-radius:8px;overflow:hidden}
-.doc-head{padding:8px 12px;background:var(--gray-50);border-bottom:0.5px solid var(--gray-200);display:flex;justify-content:space-between;align-items:center}
-.doc-head span{font-size:12px;color:var(--gray-400)}
-.doc-head a{font-size:12px;color:var(--green);font-weight:500;text-decoration:none}
-.doc-img{width:100%;display:block;max-height:340px;object-fit:contain;background:#f8f8f8}
-.doc-pdf{width:100%;height:300px;border:none;display:block}
-.no-doc{padding:2rem;text-align:center;color:var(--gray-400);font-size:13px}
-.wa-btn{width:100%;padding:13px;background:var(--wa-green);color:var(--white);border:none;border-radius:8px;font-size:14px;font-weight:500;font-family:var(--font);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;transition:background .2s}
-.wa-btn:hover{background:#1DA851}
 .success-msg{background:var(--green-light);border:0.5px solid var(--green-mid);border-radius:12px;padding:16px;text-align:center;margin-top:8px}
 .s-icon{font-size:28px;margin-bottom:8px}
 .s-title{font-size:16px;font-weight:500;color:var(--green-text);margin-bottom:4px}
 .s-sub{font-size:13px;color:var(--green-text);opacity:.8;line-height:1.5;margin-bottom:12px}
-.wa-cta{display:inline-flex;align-items:center;gap:7px;background:var(--wa-green);color:var(--white);padding:11px 20px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:background .2s}
-.wa-cta:hover{background:#1DA851}
+.wa-cta{display:inline-flex;align-items:center;gap:7px;background:var(--wa-green);color:var(--white);padding:11px 20px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none}
 ::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px}
 </style>
 </head>
@@ -122,13 +71,7 @@ body{font-family:var(--font);background:var(--wa-bg);min-height:100vh;display:fl
     </div>
     <div class="wa-badge">Servidor Municipal<br>Palmas – TO</div>
   </div>
-
-  <div class="nav-tabs">
-    <button class="tab active" onclick="switchTab('chat',this)">💬 Simulação</button>
-    <button class="tab" onclick="switchTab('painel',this)">📋 Painel Admin</button>
-  </div>
-
-  <div class="chat-view" id="tab-chat">
+  <div class="chat-view">
     <div class="chat-body" id="chat-body"></div>
     <div class="chat-input-area">
       <input class="chat-input" id="chat-input" placeholder="Digite sua resposta..." onkeydown="if(event.key==='Enter')sendMsg()">
@@ -137,37 +80,12 @@ body{font-family:var(--font);background:var(--wa-bg);min-height:100vh;display:fl
       </button>
     </div>
   </div>
-
-  <div class="painel-view" id="tab-painel">
-    <div class="painel-top">
-      <div class="painel-title">Painel de Leads</div>
-      <div class="painel-sub">Servidores · Prefeitura de Palmas – TO</div>
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="stat-n" id="st-total">0</div><div class="stat-l">Total leads</div></div>
-      <div class="stat"><div class="stat-n" id="st-doc">0</div><div class="stat-l">Com doc.</div></div>
-      <div class="stat"><div class="stat-n" id="st-margem">—</div><div class="stat-l">Margem média</div></div>
-    </div>
-    <div id="leads-list"></div>
-  </div>
 </div>
-
-<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <div class="modal-head">
-      <span class="modal-title" id="modal-title">Ficha do Servidor</span>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body" id="modal-body"></div>
-  </div>
-</div>
-
 <script>
 const WA='5511945156170';
 function saveLeads(a){try{localStorage.setItem('leads_palmas_v2',JSON.stringify(a))}catch(e){}}
 function loadLeads(){try{return JSON.parse(localStorage.getItem('leads_palmas_v2')||'[]')}catch(e){return[]}}
 let leads=loadLeads();
-
 const flow=[
   {id:'start',text:'Olá! 👋 Sou a *Sara*, consultora de crédito da Prefeitura de Palmas.\n\nVocê é servidor(a) municipal ativo(a) de Palmas – TO?',opts:['✅ Sim, sou servidor(a) ativo(a)','❌ Não sou servidor(a)']},
   {id:'nome',text:'Ótimo! 😊 Para iniciar sua simulação, qual é o seu *nome completo*?',input:true,placeholder:'Digite seu nome completo'},
@@ -180,158 +98,47 @@ const flow=[
   {id:'contracheque',text:'Estamos quase lá! 🎉\n\nPara garantir a *melhor taxa* e agilizar sua análise, envie uma foto ou PDF do seu *contracheque*.\n\nIsso é opcional, mas acelera muito o processo:',upload:true},
   {id:'fim',final:true}
 ];
-
 let step=0,answers={},uploadedDataUrl=null,uploadedType=null,uploadedName=null,chatBlocked=false;
-
-function switchTab(tab,btn){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('tab-chat').style.display=tab==='chat'?'flex':'none';
-  const p=document.getElementById('tab-painel');
-  p.style.display='none';p.classList.remove('active');
-  if(tab==='painel'){p.style.display='block';p.classList.add('active');renderPainel();}
-}
-document.getElementById('tab-painel').style.display='none';
-
 function now(){return new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}
 function fmtText(t){return t.replace(/\*(.+?)\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>').replace(/\{nome\}/g,answers.nome?answers.nome.split(' ')[0]:'')}
 function scrollChat(){const b=document.getElementById('chat-body');b.scrollTop=b.scrollHeight}
 function escQ(s){return s.replace(/'/g,"\\'")}
-
-function addBubble(html,side){
-  return new Promise(res=>{
-    setTimeout(()=>{
-      const w=document.createElement('div');
-      w.className=side==='in'?'bubble-in':'bubble-out';
-      w.innerHTML=`<div class="bubble">${html}</div><div class="bubble-time">${now()}</div>`;
-      document.getElementById('chat-body').appendChild(w);
-      scrollChat();res();
-    },0);
-  });
-}
-
-function showTyping(delay=1100){
-  return new Promise(res=>{
-    const el=document.createElement('div');
-    el.className='bubble-in';el.id='typing';
-    el.innerHTML='<div class="typing-indicator"><span></span><span></span><span></span></div>';
-    document.getElementById('chat-body').appendChild(el);
-    scrollChat();
-    setTimeout(()=>{const t=document.getElementById('typing');if(t)t.remove();res();},delay);
-  });
-}
-
+function addBubble(html,side){return new Promise(res=>{setTimeout(()=>{const w=document.createElement('div');w.className=side==='in'?'bubble-in':'bubble-out';w.innerHTML=`<div class="bubble">${html}</div><div class="bubble-time">${now()}</div>`;document.getElementById('chat-body').appendChild(w);scrollChat();res();},0);})}
+function showTyping(delay=1100){return new Promise(res=>{const el=document.createElement('div');el.className='bubble-in';el.id='typing';el.innerHTML='<div class="typing-indicator"><span></span><span></span><span></span></div>';document.getElementById('chat-body').appendChild(el);scrollChat();setTimeout(()=>{const t=document.getElementById('typing');if(t)t.remove();res();},delay);})}
 async function renderStep(s){
-  chatBlocked=true;
-  const node=flow[s];if(!node)return;
+  chatBlocked=true;const node=flow[s];if(!node)return;
   if(node.final){await finalize();return;}
   await showTyping();
   if(node.upload){
-    const html=`${fmtText(node.text)}<div class="upload-zone"><input type="file" id="file-input" accept="image/*,.pdf" onchange="handleFile(this)"><div class="up-icon">📎</div><div class="up-title">Toque aqui para enviar</div><div class="up-sub">Foto ou PDF · máx. 10MB</div></div><div class="file-attached" id="file-attached"><div class="fa-icon">📄</div><div><div class="fa-name" id="fa-name"></div><div class="fa-size" id="fa-size"></div></div></div><div class="opts" style="margin-top:10px"><button class="opt-btn" id="btn-confirmar" style="display:none" onclick="confirmUpload()">✅ Confirmar envio do contracheque</button><button class="opt-btn" onclick="skipUpload()">⏭️ Pular por agora</button></div>`;
-    await addBubble(html,'in');chatBlocked=false;return;
-  }
-  if(node.opts){
-    const optsHtml=node.opts.map((o,i)=>`<button class="opt-btn" data-step="${s}" data-idx="${i}" onclick="chooseOpt('${escQ(o)}',${s},${i})">${o}</button>`).join('');
-    await addBubble(fmtText(node.text)+`<div class="opts">${optsHtml}</div>`,'in');
+    await addBubble(`${fmtText(node.text)}<div class="upload-zone"><input type="file" id="file-input" accept="image/*,.pdf" onchange="handleFile(this)"><div class="up-icon">📎</div><div class="up-title">Toque aqui para enviar</div><div class="up-sub">Foto ou PDF · máx. 10MB</div></div><div class="file-attached" id="file-attached"><div class="fa-icon">📄</div><div><div class="fa-name" id="fa-name"></div><div class="fa-size" id="fa-size"></div></div></div><div class="opts" style="margin-top:10px"><button class="opt-btn" id="btn-confirmar" style="display:none" onclick="confirmUpload()">✅ Confirmar envio do contracheque</button><button class="opt-btn" onclick="skipUpload()">⏭️ Pular por agora</button></div>`,'in');
     chatBlocked=false;return;
   }
-  if(node.input){
-    await addBubble(fmtText(node.text),'in');
-    const inp=document.getElementById('chat-input');
-    inp.placeholder=node.placeholder||'Digite aqui...';inp.disabled=false;inp.focus();
-    chatBlocked=false;return;
-  }
+  if(node.opts){await addBubble(fmtText(node.text)+`<div class="opts">${node.opts.map((o,i)=>`<button class="opt-btn" data-step="${s}" onclick="chooseOpt('${escQ(o)}',${s},${i})">${o}</button>`).join('')}</div>`,'in');chatBlocked=false;return;}
+  if(node.input){await addBubble(fmtText(node.text),'in');const inp=document.getElementById('chat-input');inp.placeholder=node.placeholder||'Digite aqui...';inp.disabled=false;inp.focus();chatBlocked=false;return;}
   await addBubble(fmtText(node.text),'in');chatBlocked=false;
 }
-
 function chooseOpt(val,si,oi){
   document.querySelectorAll(`[data-step="${si}"]`).forEach(b=>b.disabled=true);
-  if(si===0&&oi===1){
-    addBubble(val,'out').then(()=>showTyping(900)).then(()=>addBubble('Entendido! Este crédito é exclusivo para servidores municipais ativos de Palmas. Quando ingressar no serviço público, volte aqui! 😊','in'));
-    return;
-  }
-  answers[flow[si].id]=val;
-  addBubble(val,'out').then(()=>{step++;renderStep(step);});
+  if(si===0&&oi===1){addBubble(val,'out').then(()=>showTyping(900)).then(()=>addBubble('Entendido! Este crédito é exclusivo para servidores municipais ativos de Palmas. Quando ingressar no serviço público, volte aqui! 😊','in'));return;}
+  answers[flow[si].id]=val;addBubble(val,'out').then(()=>{step++;renderStep(step);});
 }
-
-function sendMsg(){
-  const inp=document.getElementById('chat-input');
-  const val=inp.value.trim();if(!val||chatBlocked)return;
-  const node=flow[step];if(!node||!node.input)return;
-  let processed=val;
-  if(node.mask==='cpf')processed=maskCPF(val);
-  answers[node.id]=processed;inp.value='';inp.placeholder='Digite sua resposta...';
-  addBubble(processed,'out').then(()=>{step++;renderStep(step);});
-}
-
+function sendMsg(){const inp=document.getElementById('chat-input');const val=inp.value.trim();if(!val||chatBlocked)return;const node=flow[step];if(!node||!node.input)return;let p=val;if(node.mask==='cpf')p=maskCPF(val);answers[node.id]=p;inp.value='';inp.placeholder='Digite sua resposta...';addBubble(p,'out').then(()=>{step++;renderStep(step);});}
 function maskCPF(v){v=v.replace(/\D/g,'').slice(0,11);return v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4').replace(/(\d{3})(\d{3})(\d{1,3})$/,'$1.$2.$3').replace(/(\d{3})(\d{1,3})$/,'$1.$2')}
-
-function handleFile(input){
-  const file=input.files[0];if(!file)return;
-  uploadedName=file.name;uploadedType=file.type;
-  document.getElementById('fa-name').textContent=file.name;
-  document.getElementById('fa-size').textContent=(file.size/1024).toFixed(0)+' KB';
-  document.getElementById('file-attached').classList.add('show');
-  document.getElementById('btn-confirmar').style.display='block';
-  const reader=new FileReader();
-  reader.onload=e=>{uploadedDataUrl=e.target.result;};
-  reader.readAsDataURL(file);
-}
-
-function confirmUpload(){
-  if(!uploadedDataUrl)return;
-  answers.contracheque={dataUrl:uploadedDataUrl,type:uploadedType,name:uploadedName};
-  document.getElementById('btn-confirmar').disabled=true;
-  document.querySelectorAll('#chat-body .opt-btn').forEach(b=>b.disabled=true);
-  addBubble('📎 '+uploadedName+' enviado ✅','out').then(()=>{step++;renderStep(step);});
-}
-
-function skipUpload(){
-  answers.contracheque=null;
-  document.querySelectorAll('#chat-body .opt-btn').forEach(b=>b.disabled=true);
-  addBubble('⏭️ Pular por agora','out').then(()=>{step++;renderStep(step);});
-}
-
+function handleFile(input){const file=input.files[0];if(!file)return;uploadedName=file.name;uploadedType=file.type;document.getElementById('fa-name').textContent=file.name;document.getElementById('fa-size').textContent=(file.size/1024).toFixed(0)+' KB';document.getElementById('file-attached').classList.add('show');document.getElementById('btn-confirmar').style.display='block';const r=new FileReader();r.onload=e=>{uploadedDataUrl=e.target.result;};r.readAsDataURL(file);}
+function confirmUpload(){if(!uploadedDataUrl)return;answers.contracheque={dataUrl:uploadedDataUrl,type:uploadedType,name:uploadedName};document.getElementById('btn-confirmar').disabled=true;document.querySelectorAll('#chat-body .opt-btn').forEach(b=>b.disabled=true);addBubble('📎 '+uploadedName+' enviado ✅','out').then(()=>{step++;renderStep(step);});}
+function skipUpload(){answers.contracheque=null;document.querySelectorAll('#chat-body .opt-btn').forEach(b=>b.disabled=true);addBubble('⏭️ Pular por agora','out').then(()=>{step++;renderStep(step);});}
+function calcMargem(f){const m={'Até R$ 2.000':'600','R$ 2.001 – R$ 4.000':'1.200','R$ 4.001 – R$ 6.000':'1.800','R$ 6.001 – R$ 10.000':'3.000','Acima de R$ 10.000':'4.000+'};return m[f]||'—'}
+function buildMsg(l){return`🏛️ *NOVO LEAD – CONSIGNADO PALMAS*\n\n👤 *Nome:* ${l.nome}\n🪪 *CPF:* ${l.cpf}\n🏢 *Secretaria:* ${l.secretaria}\n📋 *Vínculo:* ${l.vinculo}\n💰 *Salário:* ${l.salario}\n💵 *Valor desejado:* ${l.valor}\n🎯 *Finalidade:* ${l.finalidade}\n📊 *Margem estimada:* R$ ${l.margem}\n📎 *Contracheque:* ${l.contracheque?'Enviado ✅ (ver painel admin)':'Não enviado'}\n🕐 *Data/hora:* ${l.ts}\n\n_Lead capturado via SDR Consignado Palmas_`}
 async function finalize(){
   const margem=calcMargem(answers.salario);
   const lead={id:Date.now(),ts:new Date().toLocaleString('pt-BR'),nome:answers.nome||'—',cpf:answers.cpf||'—',secretaria:answers.secretaria||'—',vinculo:answers.vinculo||'—',salario:answers.salario||'—',valor:answers.valor||'—',finalidade:answers.finalidade||'—',margem,contracheque:answers.contracheque||null};
   leads.unshift(lead);saveLeads(leads);
-  const msg=buildMsg(lead);
-  const url=`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
-  const nome=((answers.nome||'').split(' ')[0])||'servidor(a)';
+  const url=`https://wa.me/${WA}?text=${encodeURIComponent(buildMsg(lead))}`;
+  const nome=(answers.nome||'').split(' ')[0]||'servidor(a)';
   await showTyping(1200);
   await addBubble(`<strong>${nome}</strong>, sua simulação foi registrada! 🎉<br><br>📊 <strong>Margem estimada disponível:</strong> R$ ${margem}<br><br>Nossa equipe entrará em contato em breve. Para agilizar, fale agora com um consultor:<br><br><div class="success-msg"><div class="s-icon">✅</div><div class="s-title">Ficha registrada com sucesso!</div><div class="s-sub">Clique abaixo para enviar seus dados ao consultor e acelerar sua análise.</div><a class="wa-cta" href="${url}" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.857L0 24l6.335-1.521A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.487-5.187-1.341l-.371-.214-3.762.904.938-3.666-.234-.389A9.946 9.946 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg> Falar com consultor agora</a></div>`,'in');
   chatBlocked=false;
 }
-
-function calcMargem(f){const m={'Até R$ 2.000':'600','R$ 2.001 – R$ 4.000':'1.200','R$ 4.001 – R$ 6.000':'1.800','R$ 6.001 – R$ 10.000':'3.000','Acima de R$ 10.000':'4.000+'};return m[f]||'—'}
-
-function buildMsg(l){return `🏛️ *NOVO LEAD – CONSIGNADO PALMAS*\n\n👤 *Nome:* ${l.nome}\n🪪 *CPF:* ${l.cpf}\n🏢 *Secretaria:* ${l.secretaria}\n📋 *Vínculo:* ${l.vinculo}\n💰 *Salário:* ${l.salario}\n💵 *Valor desejado:* ${l.valor}\n🎯 *Finalidade:* ${l.finalidade}\n📊 *Margem estimada:* R$ ${l.margem}\n📎 *Contracheque:* ${l.contracheque?'Enviado ✅ (ver painel admin)':'Não enviado'}\n🕐 *Data/hora:* ${l.ts}\n\n_Lead capturado via SDR Consignado Palmas_`}
-
-function renderPainel(){
-  const total=leads.length;
-  const comDoc=leads.filter(l=>l.contracheque).length;
-  const nums=leads.map(l=>{const v=(l.margem||'').replace(/[^\d]/g,'');return parseInt(v)||0}).filter(v=>v>0);
-  const media=nums.length?Math.round(nums.reduce((a,b)=>a+b,0)/nums.length):0;
-  document.getElementById('st-total').textContent=total;
-  document.getElementById('st-doc').textContent=comDoc;
-  document.getElementById('st-margem').textContent=media?'R$'+media.toLocaleString('pt-BR'):'—';
-  const list=document.getElementById('leads-list');
-  if(!total){list.innerHTML='<div class="empty">📭 Nenhum lead ainda.<br>Compartilhe o link nos grupos<br>de servidores de Palmas!</div>';return;}
-  list.innerHTML=leads.map(l=>`<div class="lead-card" onclick="openLead(${l.id})"><div class="lc-top"><div class="lc-av">${(l.nome||'?')[0].toUpperCase()}</div><div><div class="lc-name">${l.nome}</div><div class="lc-time">${l.ts}</div></div><div class="lc-badge">${l.contracheque?'📎 Com doc.':'Sem doc.'}</div></div><div class="lc-chips"><div class="lc-chip">${l.secretaria}</div><div class="lc-chip">${l.vinculo}</div><div class="lc-chip">${l.salario}</div><div class="lc-chip g">Margem R$ ${l.margem}</div></div></div>`).join('');
-}
-
-function openLead(id){
-  const l=leads.find(x=>x.id===id);if(!l)return;
-  const msg=buildMsg(l);
-  const url=`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
-  document.getElementById('modal-title').textContent=l.nome;
-  document.getElementById('modal-body').innerHTML=`<div class="margem-box"><span class="mb-label">Margem estimada disponível</span><span class="mb-val">R$ ${l.margem}</span></div><div class="m-section"><div class="m-sec-title">Dados pessoais</div><div class="m-row"><span class="m-key">Nome</span><span class="m-val">${l.nome}</span></div><div class="m-row"><span class="m-key">CPF</span><span class="m-val">${l.cpf}</span></div><div class="m-row"><span class="m-key">Registrado em</span><span class="m-val">${l.ts}</span></div></div><div class="m-section"><div class="m-sec-title">Vínculo funcional</div><div class="m-row"><span class="m-key">Secretaria</span><span class="m-val">${l.secretaria}</span></div><div class="m-row"><span class="m-key">Vínculo</span><span class="m-val">${l.vinculo}</span></div><div class="m-row"><span class="m-key">Salário bruto</span><span class="m-val">${l.salario}</span></div></div><div class="m-section"><div class="m-sec-title">Interesse de crédito</div><div class="m-row"><span class="m-key">Valor desejado</span><span class="m-val g">${l.valor}</span></div><div class="m-row"><span class="m-key">Finalidade</span><span class="m-val">${l.finalidade}</span></div></div><div class="m-section"><div class="m-sec-title">Contracheque</div>${l.contracheque?`<div class="doc-wrap"><div class="doc-head"><span>📎 ${l.contracheque.name||'contracheque'}</span><a href="${l.contracheque.dataUrl}" download="${l.contracheque.name||'contracheque'}">⬇ Baixar</a></div>${l.contracheque.type==='application/pdf'?`<iframe src="${l.contracheque.dataUrl}" class="doc-pdf"></iframe>`:`<img src="${l.contracheque.dataUrl}" class="doc-img" alt="contracheque">`}</div>`:'<div class="no-doc">Documento não enviado</div>'}</div><button class="wa-btn" onclick="window.open('${url}','_blank')"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.857L0 24l6.335-1.521A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.487-5.187-1.341l-.371-.214-3.762.904.938-3.666-.234-.389A9.946 9.946 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg> Enviar ficha ao WhatsApp</button>`;
-  document.getElementById('overlay').classList.add('show');
-}
-
-function closeModal(){document.getElementById('overlay').classList.remove('show')}
-
 renderStep(0);
 </script>
 </body>
