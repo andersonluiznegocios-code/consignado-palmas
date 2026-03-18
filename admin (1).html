@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Admin · Consignado Palmas</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--green:#1D9E75;--green-light:#E1F5EE;--green-mid:#9FE1CB;--green-text:#085041;--wa-dark:#075E54;--wa-green:#25D366;--white:#fff;--gray-50:#f9f9f8;--gray-100:#f0f0ee;--gray-200:#e0e0dc;--gray-400:#9a9a96;--gray-600:#5a5a56;--gray-900:#1a1a18;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:#f0f2f5;min-height:100vh}
+.login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1rem}
+.login-card{background:var(--white);border-radius:16px;padding:2rem;width:100%;max-width:360px;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.login-logo{width:52px;height:52px;border-radius:14px;background:var(--wa-dark);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:22px}
+.login-title{font-size:20px;font-weight:500;color:var(--gray-900);text-align:center;margin-bottom:4px}
+.login-sub{font-size:13px;color:var(--gray-400);text-align:center;margin-bottom:1.5rem}
+.login-input{width:100%;height:44px;border:0.5px solid var(--gray-200);border-radius:8px;padding:0 14px;font-size:15px;font-family:var(--font);outline:none;transition:border-color .15s;color:var(--gray-900);margin-bottom:4px}
+.login-input:focus{border-color:var(--green)}
+.login-btn{width:100%;height:46px;background:var(--wa-dark);color:var(--white);border:none;border-radius:10px;font-size:15px;font-weight:500;font-family:var(--font);cursor:pointer;margin-top:12px;transition:background .2s}
+.login-btn:hover{background:#054a42}
+.login-error{font-size:13px;color:#e53e3e;text-align:center;margin-top:8px;display:none}
+.login-error.show{display:block}
+.admin-screen{display:none}
+.admin-screen.show{display:block}
+.admin-header{background:var(--wa-dark);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.admin-title{font-size:16px;font-weight:500;color:var(--white)}
+.admin-sub{font-size:11px;color:#B2DFDB;margin-top:1px}
+.logout-btn{padding:6px 14px;background:rgba(255,255,255,.15);border:none;border-radius:6px;font-size:12px;color:var(--white);cursor:pointer;font-family:var(--font)}
+.refresh-btn{padding:6px 14px;background:rgba(255,255,255,.1);border:0.5px solid rgba(255,255,255,.2);border-radius:6px;font-size:12px;color:var(--white);cursor:pointer;font-family:var(--font);margin-right:6px}
+.admin-body{padding:14px;max-width:680px;margin:0 auto}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.stat{background:var(--white);border-radius:10px;padding:12px 8px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.stat-n{font-size:24px;font-weight:500;color:var(--wa-dark)}
+.stat-l{font-size:11px;color:var(--gray-400);margin-top:2px}
+.section-title{font-size:12px;font-weight:500;letter-spacing:.06em;color:var(--gray-400);text-transform:uppercase;margin-bottom:10px}
+.lead-card{background:var(--white);border-radius:12px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:box-shadow .2s;border:0.5px solid var(--gray-200)}
+.lead-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.lc-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.lc-av{width:38px;height:38px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:var(--green);flex-shrink:0}
+.lc-name{font-size:15px;font-weight:500;color:var(--gray-900)}
+.lc-time{font-size:11px;color:var(--gray-400)}
+.lc-badge{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;background:var(--green-light);color:var(--green-text)}
+.lc-badge.no{background:var(--gray-100);color:var(--gray-600)}
+.lc-chips{display:flex;gap:6px;flex-wrap:wrap}
+.lc-chip{padding:3px 9px;background:var(--gray-100);border-radius:20px;font-size:11px;color:var(--gray-600)}
+.lc-chip.g{background:var(--green-light);color:var(--green-text)}
+.empty{text-align:center;padding:3rem 1rem;color:var(--gray-400);font-size:14px;line-height:1.7}
+.loading{text-align:center;padding:2rem;color:var(--gray-400);font-size:14px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100;overflow-y:auto;padding:20px 10px;align-items:flex-start;justify-content:center}
+.overlay.show{display:flex}
+.modal{background:var(--white);border-radius:16px;width:100%;max-width:520px;overflow:hidden}
+.modal-head{background:var(--wa-dark);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:16px;font-weight:500;color:var(--white)}
+.modal-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.2);border:none;cursor:pointer;color:var(--white);font-size:16px;display:flex;align-items:center;justify-content:center}
+.modal-body{padding:16px}
+.m-section{margin-bottom:16px}
+.m-sec-title{font-size:10px;font-weight:500;letter-spacing:.07em;color:var(--gray-400);text-transform:uppercase;margin-bottom:10px}
+.m-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--gray-100)}
+.m-row:last-child{border-bottom:none}
+.m-key{font-size:13px;color:var(--gray-600)}
+.m-val{font-size:13px;font-weight:500;color:var(--gray-900);text-align:right;max-width:60%;font-family:var(--mono)}
+.m-val.g{color:var(--green)}
+.margem-box{background:var(--green-light);border:0.5px solid var(--green-mid);border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.mb-label{font-size:13px;font-weight:500;color:var(--green-text)}
+.mb-val{font-size:22px;font-weight:500;color:var(--green);font-family:var(--mono)}
+.doc-wrap{border:0.5px solid var(--gray-200);border-radius:8px;overflow:hidden}
+.doc-head{padding:8px 12px;background:var(--gray-50);border-bottom:0.5px solid var(--gray-200);display:flex;justify-content:space-between;align-items:center}
+.doc-head span{font-size:12px;color:var(--gray-400)}
+.doc-head a{font-size:12px;color:var(--green);font-weight:500;text-decoration:none}
+.doc-img{width:100%;display:block;max-height:360px;object-fit:contain;background:#f8f8f8}
+.doc-pdf{width:100%;height:320px;border:none;display:block}
+.no-doc{padding:2rem;text-align:center;color:var(--gray-400);font-size:13px}
+.wa-btn{width:100%;padding:13px;background:var(--wa-green);color:var(--white);border:none;border-radius:8px;font-size:14px;font-weight:500;font-family:var(--font);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;transition:background .2s}
+.wa-btn:hover{background:#1DA851}
+.del-btn{width:100%;padding:11px;background:transparent;color:#e53e3e;border:0.5px solid #fed7d7;border-radius:8px;font-size:13px;font-family:var(--font);cursor:pointer;margin-top:8px}
+.del-btn:hover{background:#fff5f5}
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">🔐</div>
+    <div class="login-title">Painel Admin</div>
+    <div class="login-sub">Acesso exclusivo · Consignado Palmas</div>
+    <label style="display:block;font-size:13px;color:var(--gray-600);margin-bottom:5px">Senha de acesso</label>
+    <input class="login-input" type="password" id="senha-input" placeholder="Digite a senha" onkeydown="if(event.key==='Enter')login()">
+    <button class="login-btn" onclick="login()">Entrar no painel</button>
+    <div class="login-error" id="login-error">Senha incorreta. Tente novamente.</div>
+  </div>
+</div>
+
+<div class="admin-screen" id="admin-screen">
+  <div class="admin-header">
+    <div>
+      <div class="admin-title">Painel de Leads</div>
+      <div class="admin-sub">Servidores · Prefeitura de Palmas – TO</div>
+    </div>
+    <div style="display:flex;gap:6px">
+      <button class="refresh-btn" onclick="renderAdmin()">↻ Atualizar</button>
+      <button class="logout-btn" onclick="logout()">Sair</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <div class="stats">
+      <div class="stat"><div class="stat-n" id="st-total">—</div><div class="stat-l">Total leads</div></div>
+      <div class="stat"><div class="stat-n" id="st-doc">—</div><div class="stat-l">Com doc.</div></div>
+      <div class="stat"><div class="stat-n" id="st-margem">—</div><div class="stat-l">Margem média</div></div>
+    </div>
+    <div class="section-title">Leads recebidos</div>
+    <div id="leads-list"><div class="loading">Carregando leads...</div></div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title" id="modal-title">Ficha do Servidor</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const SUPA_URL='https://urtzujmnjndynenunhtx.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVydHp1am1uam5keW5lbnVuaHR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NzY4MDAsImV4cCI6MjA4OTI1MjgwMH0.RxINh9uF1L8H3XCmyLE6SzfhvpYiy69kTJhINKIeQRg';
+const WA='5511945156170';
+const SENHA='palmas2025';
+
+function login(){
+  const val=document.getElementById('senha-input').value;
+  if(val===SENHA){
+    sessionStorage.setItem('admin_auth','1');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-screen').classList.add('show');
+    renderAdmin();
+  }else{
+    document.getElementById('login-error').classList.add('show');
+    document.getElementById('senha-input').value='';
+  }
+}
+
+function logout(){
+  sessionStorage.removeItem('admin_auth');
+  document.getElementById('admin-screen').classList.remove('show');
+  document.getElementById('login-screen').style.display='flex';
+}
+
+async function fetchLeads(){
+  const res=await fetch(`${SUPA_URL}/rest/v1/leads?order=id.desc`,{headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}});
+  return await res.json();
+}
+
+async function renderAdmin(){
+  document.getElementById('leads-list').innerHTML='<div class="loading">Carregando leads...</div>';
+  let leads=[];
+  try{ leads=await fetchLeads(); }catch(e){ document.getElementById('leads-list').innerHTML='<div class="empty">Erro ao carregar. Verifique a conexão.</div>';return; }
+
+  const total=leads.length;
+  const comDoc=leads.filter(l=>l.contracheque_data).length;
+  const nums=leads.map(l=>{const v=(l.margem||'').replace(/[^\d]/g,'');return parseInt(v)||0}).filter(v=>v>0);
+  const media=nums.length?Math.round(nums.reduce((a,b)=>a+b,0)/nums.length):0;
+
+  document.getElementById('st-total').textContent=total;
+  document.getElementById('st-doc').textContent=comDoc;
+  document.getElementById('st-margem').textContent=media?'R$'+media.toLocaleString('pt-BR'):'—';
+
+  if(!total){document.getElementById('leads-list').innerHTML='<div class="empty">📭 Nenhum lead ainda.<br>Compartilhe o link nos grupos<br>de servidores de Palmas!</div>';return;}
+
+  document.getElementById('leads-list').innerHTML=leads.map(l=>`
+    <div class="lead-card" onclick="openLead(${l.id})">
+      <div class="lc-top">
+        <div class="lc-av">${(l.nome||'?')[0].toUpperCase()}</div>
+        <div><div class="lc-name">${l.nome}</div><div class="lc-time">${new Date(l.ts).toLocaleString('pt-BR')}</div></div>
+        <div class="lc-badge ${l.contracheque_data?'':'no'}">${l.contracheque_data?'📎 Com doc.':'Sem doc.'}</div>
+      </div>
+      <div class="lc-chips">
+        <div class="lc-chip">${l.secretaria||'—'}</div>
+        <div class="lc-chip">${l.vinculo||'—'}</div>
+        <div class="lc-chip">${l.salario||'—'}</div>
+        <div class="lc-chip g">Margem R$ ${l.margem||'—'}</div>
+      </div>
+    </div>`).join('');
+  window._leads=leads;
+}
+
+function buildMsg(l){return`🏛️ *NOVO LEAD – CONSIGNADO PALMAS*\n\n👤 *Nome:* ${l.nome}\n🪪 *CPF:* ${l.cpf}\n📱 *WhatsApp:* ${l.whatsapp||'—'}\n🏢 *Secretaria:* ${l.secretaria}\n📋 *Vínculo:* ${l.vinculo}\n💰 *Salário:* ${l.salario}\n💵 *Valor desejado:* ${l.valor}\n🎯 *Finalidade:* ${l.finalidade}\n📊 *Margem estimada:* R$ ${l.margem}\n📎 *Contracheque:* ${l.contracheque_data?'Enviado ✅':'Não enviado'}\n🕐 *Data/hora:* ${new Date(l.ts).toLocaleString('pt-BR')}\n\n_Lead capturado via SDR Consignado Palmas_`}
+
+function openLead(id){
+  const l=(window._leads||[]).find(x=>x.id===id);if(!l)return;
+  const url=`https://wa.me/${WA}?text=${encodeURIComponent(buildMsg(l))}`;
+  document.getElementById('modal-title').textContent=l.nome;
+  document.getElementById('modal-body').innerHTML=`
+    <div class="margem-box"><span class="mb-label">Margem estimada disponível</span><span class="mb-val">R$ ${l.margem||'—'}</span></div>
+    <div class="m-section">
+      <div class="m-sec-title">Dados pessoais</div>
+      <div class="m-row"><span class="m-key">Nome</span><span class="m-val">${l.nome}</span></div>
+      <div class="m-row"><span class="m-key">CPF</span><span class="m-val">${l.cpf}</span></div>
+      <div class="m-row"><span class="m-key">WhatsApp</span><span class="m-val g">${l.whatsapp||'—'}</span></div>
+      <div class="m-row"><span class="m-key">Registrado em</span><span class="m-val">${new Date(l.ts).toLocaleString('pt-BR')}</span></div>
+    </div>
+    <div class="m-section">
+      <div class="m-sec-title">Vínculo funcional</div>
+      <div class="m-row"><span class="m-key">Secretaria</span><span class="m-val">${l.secretaria}</span></div>
+      <div class="m-row"><span class="m-key">Vínculo</span><span class="m-val">${l.vinculo}</span></div>
+      <div class="m-row"><span class="m-key">Salário bruto</span><span class="m-val">${l.salario}</span></div>
+    </div>
+    <div class="m-section">
+      <div class="m-sec-title">Interesse de crédito</div>
+      <div class="m-row"><span class="m-key">Valor desejado</span><span class="m-val g">${l.valor}</span></div>
+      <div class="m-row"><span class="m-key">Finalidade</span><span class="m-val">${l.finalidade}</span></div>
+    </div>
+    <div class="m-section">
+      <div class="m-sec-title">Contracheque</div>
+      ${l.contracheque_data
+        ?`<div class="doc-wrap"><div class="doc-head"><span>📎 ${l.contracheque_name||'contracheque'}</span><a href="${l.contracheque_data}" download="${l.contracheque_name||'contracheque'}">⬇ Baixar</a></div>${l.contracheque_type==='application/pdf'?`<iframe src="${l.contracheque_data}" class="doc-pdf"></iframe>`:`<img src="${l.contracheque_data}" class="doc-img" alt="contracheque">`}</div>`
+        :'<div class="no-doc">Documento não enviado</div>'}
+    </div>
+    <button class="wa-btn" onclick="window.open('${url}','_blank')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.857L0 24l6.335-1.521A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.487-5.187-1.341l-.371-.214-3.762.904.938-3.666-.234-.389A9.946 9.946 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Enviar ficha ao WhatsApp
+    </button>
+    <button class="del-btn" onclick="deleteLead(${l.id})">🗑️ Excluir este lead</button>`;
+  document.getElementById('overlay').classList.add('show');
+}
+
+async function deleteLead(id){
+  if(!confirm('Excluir este lead permanentemente?'))return;
+  await fetch(`${SUPA_URL}/rest/v1/leads?id=eq.${id}`,{method:'DELETE',headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}});
+  closeModal();renderAdmin();
+}
+
+function closeModal(){document.getElementById('overlay').classList.remove('show')}
+
+if(sessionStorage.getItem('admin_auth')==='1'){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('admin-screen').classList.add('show');
+  renderAdmin();
+}
+</script>
+</body>
+</html>
