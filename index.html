@@ -92,6 +92,7 @@ const flow=[
   {id:'valor',text:'Que *valor de empréstimo* você precisa?',opts:['Até R$ 5.000','R$ 5.001 – R$ 10.000','R$ 10.001 – R$ 20.000','R$ 20.001 – R$ 40.000','Acima de R$ 40.000']},
   {id:'finalidade',text:'Qual é a *finalidade* do empréstimo?',opts:['🏠 Reforma ou casa própria','🚗 Veículo','🎓 Educação / curso','💊 Saúde / tratamento','💳 Quitar dívidas','💰 Reserva de emergência','🔧 Outro']},
   {id:'contracheque',text:'Estamos quase lá! 🎉\n\nPara garantir a *melhor taxa*, envie uma foto ou PDF do seu *contracheque*.\n\nOpcional, mas acelera muito:',upload:true},
+  {id:'whatsapp',text:'Por último, me informe seu *WhatsApp* para contato:',input:true,placeholder:'(63) 9 0000-0000'},
   {id:'fim',final:true}
 ];
 
@@ -129,14 +130,14 @@ function handleFile(input){const file=input.files[0];if(!file)return;uploadedNam
 function confirmUpload(){if(!uploadedDataUrl)return;answers.contracheque={dataUrl:uploadedDataUrl,type:uploadedType,name:uploadedName};document.getElementById('btn-confirmar').disabled=true;document.querySelectorAll('#chat-body .opt-btn').forEach(b=>b.disabled=true);addBubble('📎 '+uploadedName+' enviado ✅','out').then(()=>{step++;renderStep(step);});}
 function skipUpload(){answers.contracheque=null;document.querySelectorAll('#chat-body .opt-btn').forEach(b=>b.disabled=true);addBubble('⏭️ Pular por agora','out').then(()=>{step++;renderStep(step);});}
 function calcMargem(f){const m={'Até R$ 2.000':'600','R$ 2.001 – R$ 4.000':'1.200','R$ 4.001 – R$ 6.000':'1.800','R$ 6.001 – R$ 10.000':'3.000','Acima de R$ 10.000':'4.000+'};return m[f]||'—'}
-function buildMsg(l){return`🏛️ *NOVO LEAD – CONSIGNADO PALMAS*\n\n👤 *Nome:* ${l.nome}\n🪪 *CPF:* ${l.cpf}\n🏢 *Secretaria:* ${l.secretaria}\n📋 *Vínculo:* ${l.vinculo}\n💰 *Salário:* ${l.salario}\n💵 *Valor desejado:* ${l.valor}\n🎯 *Finalidade:* ${l.finalidade}\n📊 *Margem estimada:* R$ ${l.margem}\n📎 *Contracheque:* ${l.contracheque?'Enviado ✅ (ver painel admin)':'Não enviado'}\n🕐 *Data/hora:* ${new Date().toLocaleString('pt-BR')}\n\n_Lead capturado via SDR Consignado Palmas_`}
+function buildMsg(l){return`🏛️ *NOVO LEAD – CONSIGNADO PALMAS*\n\n👤 *Nome:* ${l.nome}\n🪪 *CPF:* ${l.cpf}\n📱 *WhatsApp:* ${l.whatsapp||'—'}\n🏢 *Secretaria:* ${l.secretaria}\n📋 *Vínculo:* ${l.vinculo}\n💰 *Salário:* ${l.salario}\n💵 *Valor desejado:* ${l.valor}\n🎯 *Finalidade:* ${l.finalidade}\n📊 *Margem estimada:* R$ ${l.margem}\n📎 *Contracheque:* ${l.contracheque?'Enviado ✅ (ver painel admin)':'Não enviado'}\n🕐 *Data/hora:* ${new Date().toLocaleString('pt-BR')}\n\n_Lead capturado via SDR Consignado Palmas_`}
 
 async function salvarSupabase(lead){
   try{
     const body={
-      nome:lead.nome,cpf:lead.cpf,secretaria:lead.secretaria,
-      vinculo:lead.vinculo,salario:lead.salario,valor:lead.valor,
-      finalidade:lead.finalidade,margem:lead.margem,
+      nome:lead.nome,cpf:lead.cpf,whatsapp:lead.whatsapp||null,
+      secretaria:lead.secretaria,vinculo:lead.vinculo,salario:lead.salario,
+      valor:lead.valor,finalidade:lead.finalidade,margem:lead.margem,
       contracheque_name:lead.contracheque?.name||null,
       contracheque_type:lead.contracheque?.type||null,
       contracheque_data:lead.contracheque?.dataUrl||null
@@ -151,7 +152,7 @@ async function salvarSupabase(lead){
 
 async function finalize(){
   const margem=calcMargem(answers.salario);
-  const lead={nome:answers.nome||'—',cpf:answers.cpf||'—',secretaria:answers.secretaria||'—',vinculo:answers.vinculo||'—',salario:answers.salario||'—',valor:answers.valor||'—',finalidade:answers.finalidade||'—',margem,contracheque:answers.contracheque||null};
+  const lead={nome:answers.nome||'—',cpf:answers.cpf||'—',whatsapp:answers.whatsapp||'—',secretaria:answers.secretaria||'—',vinculo:answers.vinculo||'—',salario:answers.salario||'—',valor:answers.valor||'—',finalidade:answers.finalidade||'—',margem,contracheque:answers.contracheque||null};
   await salvarSupabase(lead);
   const url=`https://wa.me/${WA}?text=${encodeURIComponent(buildMsg(lead))}`;
   const nome=(answers.nome||'').split(' ')[0]||'servidor(a)';

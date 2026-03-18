@@ -185,7 +185,7 @@ async function renderAdmin(){
   window._leads=leads;
 }
 
-function buildMsg(l){return`🏛️ *NOVO LEAD – CONSIGNADO PALMAS*\n\n👤 *Nome:* ${l.nome}\n🪪 *CPF:* ${l.cpf}\n🏢 *Secretaria:* ${l.secretaria}\n📋 *Vínculo:* ${l.vinculo}\n💰 *Salário:* ${l.salario}\n💵 *Valor desejado:* ${l.valor}\n🎯 *Finalidade:* ${l.finalidade}\n📊 *Margem estimada:* R$ ${l.margem}\n📎 *Contracheque:* ${l.contracheque_data?'Enviado ✅':'Não enviado'}\n🕐 *Data/hora:* ${new Date(l.ts).toLocaleString('pt-BR')}\n\n_Lead capturado via SDR Consignado Palmas_`}
+function buildMsg(l){return`🏛️ *NOVO LEAD – CONSIGNADO PALMAS*\n\n👤 *Nome:* ${l.nome}\n🪪 *CPF:* ${l.cpf}\n📱 *WhatsApp:* ${l.whatsapp||'—'}\n🏢 *Secretaria:* ${l.secretaria}\n📋 *Vínculo:* ${l.vinculo}\n💰 *Salário:* ${l.salario}\n💵 *Valor desejado:* ${l.valor}\n🎯 *Finalidade:* ${l.finalidade}\n📊 *Margem estimada:* R$ ${l.margem}\n📎 *Contracheque:* ${l.contracheque_data?'Enviado ✅':'Não enviado'}\n🕐 *Data/hora:* ${new Date(l.ts).toLocaleString('pt-BR')}\n\n_Lead capturado via SDR Consignado Palmas_`}
 
 function openLead(id){
   const l=(window._leads||[]).find(x=>x.id===id);if(!l)return;
@@ -197,6 +197,7 @@ function openLead(id){
       <div class="m-sec-title">Dados pessoais</div>
       <div class="m-row"><span class="m-key">Nome</span><span class="m-val">${l.nome}</span></div>
       <div class="m-row"><span class="m-key">CPF</span><span class="m-val">${l.cpf}</span></div>
+      <div class="m-row"><span class="m-key">WhatsApp</span><span class="m-val g">${l.whatsapp||'—'}</span></div>
       <div class="m-row"><span class="m-key">Registrado em</span><span class="m-val">${new Date(l.ts).toLocaleString('pt-BR')}</span></div>
     </div>
     <div class="m-section">
